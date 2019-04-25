@@ -1,0 +1,35 @@
+---
+- hosts: lb
+  remote_user: ubuntu
+  become: true
+  become_user: root
+  become_method: sudo
+  vars:
+    webserver1: "{{ ec2_ip1 }}"
+    webserver2: "{{ ec2_ip2 }}"
+  tasks:
+    - name: 'Install Nginx'
+      apt:
+        name: nginx
+        state: latest
+        update_cache: yes
+    - name: remove file
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent 
+    - template:
+        src: ~/ansible/templates/load-balancer.j2
+        dest: /etc/nginx/conf.d/load-balancer.conf
+      notify:
+      -  restart nginx
+    - name: Start service Nginx and enable
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+

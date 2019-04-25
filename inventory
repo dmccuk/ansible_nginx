@@ -1,0 +1,6 @@
+[webservers]
+server1
+server2
+
+[lb]
+server3
