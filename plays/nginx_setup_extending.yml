@@ -1,0 +1,27 @@
+---
+- hosts: webservers
+  remote_user: ubuntu
+  become: true
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: 'install nginx'
+      apt:
+        name: nginx
+        state: latest
+    - template:
+        src: ~/ansible/templates/index.html.j2
+        dest: /var/www/html/index.html
+      notify:
+      - restart nginx
+    - name: Start service nginx and enable
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+

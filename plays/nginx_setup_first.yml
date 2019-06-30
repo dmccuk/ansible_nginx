@@ -1,0 +1,16 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: true
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: 'install nginx'
+      apt:
+        name: nginx
+        state: latest
+    - name: Start service nginx and enable
+      service:
+        name: nginx
+        state: started
+        enabled: yes

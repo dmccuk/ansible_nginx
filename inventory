@@ -1,6 +1,6 @@
 [webservers]
-server1
-server2
+54.77.254.154
+34.244.248.20
 
 [lb]
-server3
+18.203.244.160
