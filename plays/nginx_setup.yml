@@ -11,7 +11,7 @@
         state: latest
         update_cache: yes
     - template:
-        src: ~/ansible/templates/index.html.j2
+        src: ~/ansible_nginx/templates/index.html.j2
         dest: /var/www/html/index.html
       notify:
       - restart nginx

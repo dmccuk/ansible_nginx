@@ -11,7 +11,7 @@
         state: latest
         update_cache: yes
     - template:
-        src: ~/ansible/templates/index.html.j2
+        src: ~/ansible_nginx/templates/index.html.j2
         dest: /var/www/html/index.html
       notify:
       - restart nginx
@@ -45,7 +45,7 @@
         path: /etc/nginx/sites-enabled/default
         state: absent 
     - template:
-        src: ~/ansible/templates/load-balancer.j2
+        src: ~/ansible_nginx/templates/load-balancer.j2
         dest: /etc/nginx/conf.d/load-balancer.conf
       notify:
       -  restart nginx
